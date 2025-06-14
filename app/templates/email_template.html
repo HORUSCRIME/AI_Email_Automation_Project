@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ subject }}</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style>
+        /* Reset styles */
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
+        
+        /* Base styles */
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+        }
+        
+        /* Container */
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .header .tagline {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* Content */
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .greeting {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .intro {
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #34495e;
+        }
+        
+        .company-mention {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+        
+        /* Issues Section */
+        .issues-section {
+            background-color: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .issues-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e53e3e;
+            margin-bottom: 15px;
+        }
+        
+        .issues-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .issues-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #fed7d7;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .issues-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .issues-list li:before {
+            content: "❌";
+            position: absolute;
+            left: 0;
+            top: 10px;
+        }
+        
+        /* Solutions Section */
+        .solutions-section {
+            background-color: #f0fff4;
+            border-left: 4px solid #38a169;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .solutions-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #38a169;
+            margin-bottom: 15px;
+        }
+        
+        .solutions-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .solutions-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #c6f6d5;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .solutions-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .solutions-list li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+            top: 10px;
+        }
+        
+        /* FOMO Section */
+        .fomo-section {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .fomo-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+        
+        .fomo-text {
+            font-size: 16px;
+            color: #2d3436;
+            line-height: 1.6;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white !important;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .cta-subtitle {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .signature {
+            margin-bottom: 20px;
+        }
+        
+        .signature-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .signature-title {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .signature-company {
+            font-size: 18px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .contact-info {
+            margin: 20px 0;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .social-links {
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 14px;
+        }
+        
+        .disclaimer {
+            margin-top: 30px;
+            font-size: 12px;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+        
+        /* Responsive */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+            
+            .content {
+                padding: 30px 20px !important;
+            }
+            
+            .header {
+                padding: 25px 20px !important;
+            }
+            
+            .header h1 {
+                font-size: 24px !important;
+            }
+            
+            .issues-section,
+            .solutions-section,
+            .fomo-section {
+                padding: 20px !important;
+                margin: 20px 0 !important;
+            }
+            
+            .cta-button {
+                padding: 15px 30px !important;
+                font-size: 16px !important;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .email-container {
+                background-color: #1a1a1a !important;
+                color: #ffffff !important;
+            }
+            
+            .content {
+                color: #ffffff !important;
+            }
+            
+            .greeting {
+                color: #ffffff !important;
+            }
+            
+            .intro {
+                color: #cccccc !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>NetWit</h1>
+            <p class="tagline">Elevating Your Digital Presence</p>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Greeting -->
+            <div class="greeting">
+                Hi {{ first_name }},
+            </div>
+            
+            <!-- Introduction -->
+            <div class="intro">
+                {{ intro_text }}
+                <br><br>
+                I came across <span class="company-mention">{{ company_name }}</span> and was impressed by {{ company_compliment }}. Your {{ business_focus }} really caught my attention.
+            </div>
+            
+            <!-- Issues Section -->
+            {% if issues and issues|length > 0 %}
+            <div class="issues-section">
+                <div class="issues-title">
+                    🚨 Critical Issues I Noticed on Your Website
+                </div>
+                <ul class="issues-list">
+                    {% for issue in issues %}
+                    <li>{{ issue }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            <!-- Solutions Section -->
+            {% if solutions and solutions|length > 0 %}
+            <div class="solutions-section">
+                <div class="solutions-title">
+                    💡 How NetWit Can Transform Your {{ company_name }}
+                </div>
+                <ul class="solutions-list">
+                    {% for solution in solutions %}
+                    <li>{{ solution }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
+            <!-- FOMO Section -->
+            {% if fomo_text %}
+            <div class="fomo-section">
+                <div class="fomo-title">
+                    ⏰ Don't Let Your Competitors Get Ahead
+                </div>
+                <div class="fomo-text">
+                    {{ fomo_text }}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Benefits -->
+            <div class="intro">
+                {{ first_name }}, imagine if your website could:
+                <br><br>
+                ✨ <strong>Convert 3x more visitors into customers</strong><br>
+                🚀 <strong>Rank #1 on Google for your key services</strong><br>
+                📱 <strong>Look stunning on every device</strong><br>
+                ⚡ <strong>Load 5x faster than your competitors</strong><br>
+                <br>
+                That's exactly what we've achieved for businesses like {{ company_name }} in the past 90 days.
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="cta-section">
+                <a href="{{ cta_link }}" class="cta-button">
+                    {{ cta_text }}
+                </a>
+                <div class="cta-subtitle">
+                    🎯 Free 15-minute consultation • No obligations • Immediate insights
+                </div>
+            </div>
+            
+            <!-- Personal Touch -->
+            <div class="intro">
+                {{ first_name }}, I genuinely believe {{ company_name }} has incredible potential. Let's unlock it together.
+                <br><br>
+                Looking forward to hearing from you,
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="signature">
+                <div class="signature-name">Dave Chatpar</div>
+                <div class="signature-title">Digital Growth Strategist</div>
+                <div class="signature-company">NetWit.ca</div>
+            </div>
+            
+            <div class="contact-info">
+                📧 dave@netwit.ca | 📱 +1 (555) 123-4567<br>
+                🌐 www.netwit.ca
+            </div>
+            
+            <div class="social-links">
+                <a href="https://linkedin.com/company/netwit">LinkedIn</a> |
+                <a href="https://twitter.com/netwit">Twitter</a> |
+                <a href="https://facebook.com/netwit">Facebook</a>
+            </div>
+            
+            <div class="disclaimer">
+                This email was sent to {{ email_address }} because you're a business owner who could benefit from our services. 
+                If you'd prefer not to receive these emails, you can 
+                <a href="{{ unsubscribe_link }}" style="color: #667eea;">unsubscribe here</a>.
+                <br><br>
+                NetWit Digital Marketing Inc. | 123 Business Ave, Suite 100 | Toronto, ON M5V 3A1 | Canada
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tracking Pixel -->
+    {% if tracking_pixel %}
+    <img src="{{ tracking_pixel }}" width="1" height="1" alt="" style="display:none;">
+    {% endif %}
+</body>
+</html>

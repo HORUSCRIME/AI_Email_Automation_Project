@@ -1,0 +1,122 @@
+[
+  {
+    "timestamp": "2025-06-14T11:30:12.410785",
+    "activity": "system_startup",
+    "details": {
+      "message": "Application started"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:32:58.946782",
+    "activity": "upload_error",
+    "details": {
+      "filename": "nthg.txt",
+      "error": "type object 'EmailValidator' has no attribute 'is_valid_email'"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:32:58.968284",
+    "activity": "http_error",
+    "details": {
+      "status_code": 500,
+      "detail": "Error processing file: type object 'EmailValidator' has no attribute 'is_valid_email'",
+      "url": "http://127.0.0.1:8000/upload-emails"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:36:28.121584",
+    "activity": "system_startup",
+    "details": {
+      "message": "Application started"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:36:47.295742",
+    "activity": "upload_error",
+    "details": {
+      "filename": "nthg.txt",
+      "error": "type object 'EmailValidator' has no attribute 'is_valid_email'"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:36:47.308519",
+    "activity": "http_error",
+    "details": {
+      "status_code": 500,
+      "detail": "Error processing file: type object 'EmailValidator' has no attribute 'is_valid_email'",
+      "url": "http://127.0.0.1:8000/upload-emails"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:38:13.569167",
+    "activity": "system_startup",
+    "details": {
+      "message": "Application started"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:38:36.580473",
+    "activity": "upload_error",
+    "details": {
+      "filename": "nthg.txt",
+      "error": "type object 'EmailValidator' has no attribute 'is_valid_email'"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:38:36.591186",
+    "activity": "http_error",
+    "details": {
+      "status_code": 500,
+      "detail": "Error processing file: type object 'EmailValidator' has no attribute 'is_valid_email'",
+      "url": "http://127.0.0.1:8000/upload-emails"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:40:55.144438",
+    "activity": "system_startup",
+    "details": {
+      "message": "Application started"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:41:00.163488",
+    "activity": "upload_error",
+    "details": {
+      "filename": "nthg.txt",
+      "error": "type object 'EmailValidator' has no attribute 'is_valid_email'"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:41:00.175137",
+    "activity": "http_error",
+    "details": {
+      "status_code": 500,
+      "detail": "Error processing file: type object 'EmailValidator' has no attribute 'is_valid_email'",
+      "url": "http://127.0.0.1:8000/upload-emails"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:41:22.385469",
+    "activity": "system_startup",
+    "details": {
+      "message": "Application started"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:41:35.624221",
+    "activity": "upload_error",
+    "details": {
+      "filename": "nthg.txt",
+      "error": "type object 'EmailValidator' has no attribute 'is_valid_email'"
+    }
+  },
+  {
+    "timestamp": "2025-06-14T11:41:35.635136",
+    "activity": "http_error",
+    "details": {
+      "status_code": 500,
+      "detail": "Error processing file: type object 'EmailValidator' has no attribute 'is_valid_email'",
+      "url": "http://127.0.0.1:8000/upload-emails"
+    }
+  }
+]

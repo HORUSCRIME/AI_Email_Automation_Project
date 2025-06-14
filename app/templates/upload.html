@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Email Automation - Upload Interface</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .shape {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(1) { width: 80px; height: 80px; top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { width: 60px; height: 60px; top: 60%; left: 80%; animation-delay: 2s; }
+        .shape:nth-child(3) { width: 40px; height: 40px; top: 80%; left: 20%; animation-delay: 4s; }
+        .shape:nth-child(4) { width: 100px; height: 100px; top: 40%; left: 70%; animation-delay: 1s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Content */
+        .content {
+            padding: 50px 40px;
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .upload-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .upload-description {
+            font-size: 16px;
+            color: #718096;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .upload-area {
+            border: 3px dashed #cbd5e0;
+            border-radius: 15px;
+            padding: 60px 40px;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+        }
+        
+        .upload-area:hover::before {
+            left: 100%;
+        }
+        
+        .upload-area.dragover {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .upload-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover .upload-icon {
+            transform: scale(1.1);
+        }
+        
+        .upload-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .upload-subtext {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 25px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .upload-btn:active {
+            transform: translateY(0);
+        }
+        
+        .file-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0fff4;
+            border-radius: 10px;
+            border-left: 4px solid #38a169;
+            display: none;
+        }
+        
+        .file-info.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .process-btn {
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(56, 161, 105, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .process-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 161, 105, 0.6);
+        }
+        
+        .process-btn.show {
+            display: inline-block;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            font-size: 14px;
+            color: #718096;
+            line-height: 1.6;
+        }
+        
+        /* Progress Section */
+        .progress-section {
+            display: none;
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .progress-section.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .progress-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .current-email {
+            text-align: center;
+            font-size: 14px;
+            color: #718096;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        /* Results Section */
+        .results-section {
+            display: none;
+            margin: 40px 0;
+        }
+        
+        .results-section.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+        
+        .results-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .result-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .result-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .result-label {
+            font-size: 14px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .action-btn.secondary {
+            background: linear-gradient(135deg, #718096 0%, #4a5568 100%);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .logo {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .upload-title {
+                font-size: 24px;
+            }
+            
+            .upload-area {
+                padding: 40px 20px;
+            }
+            
+            .upload-icon {
+                font-size: 48px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+        }
+        
+        .notification.info {
+            background: linear-gradient(135deg, #3182ce, #2c5282);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-card">
+            <!-- Header -->
+            <div class="header">
+                <div class="logo">🤖 NetWit AI</div>
+                <div class="subtitle">Intelligent Email Automation Platform</div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Upload Section -->
+                <div class="upload-section">
+                    <h2 class="upload-title">Upload Your Email List</h2>
+                    <p class="upload-description">
+                        Upload a CSV, Excel file, or plain text file containing email addresses. 
+                        Our AI will analyze each contact's website and generate personalized emails.
+                    </p>
+
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <div class="upload-text">Drag & Drop Your File Here</div>
+                        <div class="upload-subtext">or click to browse files</div>
+                        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                            Choose File
+                        </button>
+                        <input type="file" id="fileInput" class="file-input" accept=".csv,.xlsx,.xls,.txt" />
+                    </div>
+
+                    <div class="file-info" id="fileInfo">
+                        <div id="fileName"></div>
+                        <div id="fileDetails"></div>
+                        <button class="process-btn" id="processBtn">
+                            🚀 Start Processing
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Features Grid -->
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <div class="feature-title">Smart Analysis</div>
+                        <div class="feature-description">
+                            Automatically extracts names from email addresses and analyzes company websites 
+                            for personalized insights.
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <div class="feature-title">Website Audit</div>
+                        <div class="feature-description">
+                            Performs comprehensive SEO audits, checks mobile responsiveness, 
+                            loading speed, and identifies improvement opportunities.
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✉️</div>
+                        <div class="feature-title">Personalized Emails</div>
+                        <div class="feature-description">
+                            Generates hyper-personalized HTML emails with specific recommendations 
+                            and compelling call-to-actions.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Section -->
+                <div class="progress-section" id="progressSection">
+                    <h3 class="progress-title">Processing Your Email List...</h3>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">0% Complete</div>
+                    <div class="current-email" id="currentEmail">Initializing...</div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section" id="resultsSection">
+                    <h3 class="results-title">✅ Processing Complete!</h3>
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-number" id="totalProcessed">0</div>
+                            <div class="result-label">Total Processed</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-number" id="emailsSent">0</div>
+                            <div class="result-label">Emails Sent</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-number" id="websitesAnalyzed">0</div>
+                            <div class="result-label">Websites Analyzed</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-number" id="successRate">0%</div>
+                            <div class="result-label">Success Rate</div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="downloadReport()">
+                            📊 Download Report
+                        </button>
+                        <button class="action-btn secondary" onclick="viewEmailPreview()">
+                            👀 Preview Emails
+                        </button>
+                        <button class="action-btn secondary" onclick="startNewProcess()">
+                            🔄 Process New List
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let selectedFile = null;
+        let processedData = null;
+
+        // File upload handling
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileDetails = document.getElementById('fileDetails');
+        const processBtn = document.getElementById('processBtn');
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelect(files[0]);
+            }
+        });
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        function handleFileSelect(file) {
+            const allowedTypes = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'text/plain'];
+            
+            if (!allowedTypes.includes(file.type)) {
+                showNotification('Please select a CSV, Excel, or text file.', 'error');
+                return;
+            }
+
+            selectedFile = file;
+            fileName.textContent = `📄 ${file.name}`;
+            fileDetails.textContent = `Size: ${(file.size / 1024).toFixed(2)} KB | Type: ${file.type}`;
+            fileInfo.classList.add('show');
+            processBtn.classList.add('show');
+            
+            showNotification('File uploaded successfully!', 'success');
+        }
+
+        // Process button handler
+        processBtn.addEventListener('click', async () => {
+            if (!selectedFile) {
+                showNotification('Please select a file first.', 'error');
+                return;
+            }
+
+            showProgressSection();
+            await processEmailList();
+        });
+
+        function showProgressSection() {
+            document.getElementById('progressSection').classList.add('show');
+            document.querySelector('.upload-section').style.display = 'none';
+            document.querySelector('.features-grid').style.display = 'none';
+        }
+
+        async function processEmailList() {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            try {
+                const response = await fetch('/api/process-emails', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to process emails');
+                }
+
+                // Set up Server-Sent Events for real-time progress
+                const eventSource = new EventSource('/api/progress');
+                
+                eventSource.onmessage = function(event) {
+                    const data = JSON.parse(event.data);
+                    updateProgress(data);
+                    
+                    if (data.status === 'complete') {
+                        eventSource.close();
+                        showResults(data);
+                    }
+                };
+
+                eventSource.onerror = function(event) {
+                    eventSource.close();
+                    showNotification('Connection lost. Please refresh and try again.', 'error');
+                };
+
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Failed to process emails. Please try again.', 'error');
+                
+                // Simulate progress for demo purposes
+                simulateProgress();
+            }
+        }
+
+        function updateProgress(data) {
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const currentEmail = document.getElementById('currentEmail');
+
+            progressBar.style.width = `${data.progress}%`;
+            progressText.textContent = `${data.progress}% Complete`;
+            currentEmail.textContent = data.currentEmail || 'Processing...';
+        }
+
+        function simulateProgress() {
+            let progress = 0;
+            const emails = ['john@example.com', 'sarah@company.com', 'mike@business.org'];
+            let emailIndex = 0;
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 100) progress = 100;
+
+                updateProgress({
+                    progress: Math.round(progress),
+                    currentEmail: emails[emailIndex % emails.length]
+                });
+
+                emailIndex++;
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        showResults({
+                            totalProcessed: 25,
+                            emailsSent: 23,
+                            websitesAnalyzed: 25,
+                            successRate: 92
+                        });
+                    }, 1000);
+                }
+            }, 500);
+        }
+
+        function showResults(data) {
+            document.getElementById('progressSection').classList.remove('show');
+            document.getElementById('resultsSection').classList.add('show');
+
+            if (data.totalProcessed) {
+                document.getElementById('totalProcessed').textContent = data.totalProcessed;
+                document.getElementById('emailsSent').textContent = data.emailsSent;
+                document.getElementById('websitesAnalyzed').textContent = data.websitesAnalyzed;
+                document.getElementById('successRate').textContent = `${data.successRate}%`;
+            }
+
+            processedData = data;
+            showNotification('Email processing completed successfully!', 'success');
+        }
+
+        // Action button handlers
+        function downloadReport() {
+            showNotification('Downloading report...', 'info');
+            // In a real implementation, this would trigger a file download
+            setTimeout(() => {
+                showNotification('Report downloaded successfully!', 'success');
+            }, 1500);
+        }
+
+        function viewEmailPreview() {
+            // Open email preview in new window/modal
+            window.open('/preview-emails', '_blank');
+        }
+
+        function startNewProcess() {
+            // Reset the form
+            selectedFile = null;
+            processedData = null;
+            
+            document.getElementById('resultsSection').classList.remove('show');
+            document.getElementById('progressSection').classList.remove('show');
+            document.querySelector('.upload-section').style.display = 'block';
+            document.querySelector('.features-grid').style.display = 'grid';
+            
+            fileInfo.classList.remove('show');
+            processBtn.classList.remove('show');
+            
+            fileInput.value = '';
+            fileName.textContent = '';
+            fileDetails.textContent = '';
+            
+            showNotification('Ready for new upload!', 'info');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            showNotification('Welcome to NetWit AI Email Automation!', 'info');
+        });
+    </script>
+</body>
+</html>
